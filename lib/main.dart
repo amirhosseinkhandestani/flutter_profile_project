@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Color surfaceColor = Color(0x0dffffff);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -48,84 +49,132 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('profile'),
-          actions: [
-            Icon(CupertinoIcons.chat_bubble),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 16, 0),
-              child: Icon(CupertinoIcons.ellipsis_vertical),
-            )
-          ],
-        ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(32),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      'assets/images/profile_image.png',
-                      width: 60,
-                      height: 60,
-                    ),
+      appBar: AppBar(
+        title: Text('profile'),
+        actions: [
+          Icon(CupertinoIcons.chat_bubble),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 16, 0),
+            child: Icon(CupertinoIcons.ellipsis_vertical),
+          )
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(32),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    'assets/images/profile_image.png',
+                    width: 60,
+                    height: 60,
                   ),
-                  SizedBox(
-                    width: 16,
+                ),
+                SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'AmirHossein Khandestani',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Text('Flutter Programer'),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            CupertinoIcons.location,
+                            size: 15,
+                            color: Theme.of(context).textTheme.bodySmall!.color,
+                          ),
+                          SizedBox(
+                            width: 3,
+                          ),
+                          Text(
+                            'Iran,Shiraz',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          )
+                        ],
+                      )
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'AmirHossein Khandestani',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        Text('Flutter Programer'),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              CupertinoIcons.location,
-                              size: 15,
-                              color:
-                                  Theme.of(context).textTheme.bodySmall!.color,
-                            ),
-                            SizedBox(
-                              width: 3,
-                            ),
-                            Text(
-                              'Iran,Shiraz',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  Icon(
-                    CupertinoIcons.heart,
-                    color: Theme.of(context).primaryColor,
-                  )
-                ],
-              ),
+                ),
+                Icon(
+                  CupertinoIcons.heart,
+                  color: Theme.of(context).primaryColor,
+                )
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(32, 0, 32, 16),
-              child: Text(
-                'uben macht den meister',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(32, 0, 32, 16),
+            child: Text(
+              'uben macht den meister',
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
-            Divider()
-          ],
-        ));
+          ),
+          Divider(),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(32, 16, 32, 12),
+            child:
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Text(
+                'Skills',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                width: 2,
+              ),
+              Icon(
+                CupertinoIcons.chevron_down,
+                size: 12,
+              )
+            ]),
+          ),
+          Center(
+            child: Wrap(
+              direction: Axis.horizontal,
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                Container(
+                  width: 110,
+                  height: 110,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).dividerColor,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/app_icon_01.png',
+                        width: 40,
+                        height: 40,
+                      ),
+                      Text('photoshop'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
