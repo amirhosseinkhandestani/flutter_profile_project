@@ -45,7 +45,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+enum _SkillType { photoshop, xd, illustrator, aftterEfect, lightRoom }
+
+class _MyHomePageState extends State<MyHomePage> {
+  _SkillType _skill = _SkillType.photoshop;
+  void updateSelectedSkill(_SkillType skillType) {
+    setState(() {
+      this._skill = skillType;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,34 +160,127 @@ class MyHomePage extends StatelessWidget {
               )
             ]),
           ),
+          const SizedBox(
+            height: 12,
+          ),
           Center(
             child: Wrap(
               direction: Axis.horizontal,
               spacing: 8,
               runSpacing: 8,
               children: [
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).dividerColor,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/app_icon_01.png',
-                        width: 40,
-                        height: 40,
-                      ),
-                      Text('photoshop'),
-                    ],
-                  ),
+                Skill(
+                  type: _SkillType.photoshop,
+                  title: 'Photoshop',
+                  imagePath: 'assets/images/app_icon_01.png',
+                  shadowColor: Colors.blue,
+                  isActive: _skill == _SkillType.photoshop,
+                  onTap: () {
+                    updateSelectedSkill(_SkillType.photoshop);
+                  },
+                ),
+                Skill(
+                  type: _SkillType.xd,
+                  title: 'Adobe XD',
+                  imagePath: 'assets/images/app_icon_05.png',
+                  shadowColor: Colors.pink,
+                  isActive: _skill == _SkillType.xd,
+                  onTap: () {
+                    updateSelectedSkill(_SkillType.xd);
+                  },
+                ),
+                Skill(
+                  type: _SkillType.illustrator,
+                  title: 'Illustrator',
+                  imagePath: 'assets/images/app_icon_04.png',
+                  shadowColor: Colors.orange,
+                  isActive: _skill == _SkillType.illustrator,
+                  onTap: () {
+                    updateSelectedSkill(_SkillType.illustrator);
+                  },
+                ),
+                Skill(
+                  type: _SkillType.aftterEfect,
+                  title: 'After Effect',
+                  imagePath: 'assets/images/app_icon_03.png',
+                  shadowColor: Colors.blue.shade800,
+                  isActive: _skill == _SkillType.aftterEfect,
+                  onTap: () {
+                    updateSelectedSkill(_SkillType.aftterEfect);
+                  },
+                ),
+                Skill(
+                  type: _SkillType.illustrator,
+                  title: 'Lightroom',
+                  imagePath: 'assets/images/app_icon_02.png',
+                  shadowColor: Colors.blue,
+                  isActive: _skill == _SkillType.lightRoom,
+                  onTap: () {
+                    updateSelectedSkill(_SkillType.lightRoom);
+                  },
                 ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Skill extends StatelessWidget {
+  final _SkillType type;
+  final String title;
+  final String imagePath;
+  final Color shadowColor;
+  final bool isActive;
+  final Function() onTap;
+
+  const Skill(
+      {super.key,
+      required this.type,
+      required this.title,
+      required this.imagePath,
+      required this.shadowColor,
+      required this.isActive,
+      required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
+      onTap: onTap,
+      child: Container(
+        width: 110,
+        height: 110,
+        decoration: isActive
+            ? BoxDecoration(
+                color: Theme.of(context).dividerColor,
+                borderRadius: BorderRadius.circular(12),
+              )
+            : null,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              decoration: isActive
+                  ? BoxDecoration(boxShadow: [
+                      BoxShadow(
+                          color: shadowColor.withOpacity(.5), blurRadius: 20)
+                    ])
+                  : null,
+              child: Image.asset(
+                imagePath,
+                width: 40,
+                height: 40,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(title),
+          ],
+        ),
       ),
     );
   }
